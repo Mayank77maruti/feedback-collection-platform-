@@ -1,5 +1,7 @@
 # feedback-collection-platform
 
+<img width="1920" height="1080" alt="Screenshot from 2025-07-19 23-27-16" src="https://github.com/user-attachments/assets/04f4ca88-d916-47d7-8ca5-aa2bf7397372" />
+
 # 🪄 Hogwarts Feedback Collection Platform
 
 A magical, full-stack feedback collection platform where businesses can create custom forms, users can submit feedback, and admins can view and analyze responses—all with a beautiful Harry Potter-inspired UI and AI-powered insights!
