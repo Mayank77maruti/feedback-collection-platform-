@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Hogwarts Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            overflow: hidden;
+            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .stars {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .sidebar {
+            width: 250px;
+            background: rgba(34, 34, 51, 0.95);
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+        .sidebar-logo {
+            font-family: 'UnifrakturCook', cursive;
+            color: #ffd700;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-left: 10px;
+            text-shadow: 0 0 8px #fffbe6, 0 0 16px #ffd700;
+            letter-spacing: 2px;
+        }
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar-nav-btn {
+            padding: 12px 16px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #ffd700, #b8860b);
+            color: #222;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.2s, transform 0.2s;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 0 8px #ffd70055;
+        }
+        .sidebar-nav-btn:hover {
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #fff;
+            transform: translateX(5px) scale(1.04);
+        }
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            position: relative;
+        }
+        .form-title {
+            font-family: 'UnifrakturCook', cursive;
+            color: #ffd700;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-shadow: 0 0 8px #fffbe6, 0 0 16px #ffd700;
+        }
+        form {
+            background: rgba(255,255,255,0.07);
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 32px 24px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 320px;
+        }
+        label {
+            color: #fffbe6;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #f9fafb;
+            transition: border 0.2s;
+        }
+        input:focus {
+            border-color: #ffd700;
+            outline: none;
+        }
+        button {
+            padding: 12px;
+            background: linear-gradient(90deg, #ffd700, #b8860b);
+            color: #222;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 0 8px #ffd70055;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #fff;
+        }
+        #loginMsg {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+                padding: 20px;
+            }
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 15px;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            form {
+                min-width: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="sidebar">
+        <div class="sidebar-logo">Hogwarts Feedback</div>
+        <nav class="sidebar-nav">
+            <a href="register.html" class="sidebar-nav-btn">Register (Admin)</a>
+            <a href="login.html" class="sidebar-nav-btn">Login (Admin)</a>
+            <a href="feedback.html" class="sidebar-nav-btn">Submit Feedback</a>
+            <a href="dashboard.html" class="sidebar-nav-btn">Dashboard</a>
+        </nav>
+    </div>
+    <div class="main-content">
+        <div class="form-title">Admin Login</div>
+        <form id="loginForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id="loginMsg" class="hidden"></div>
+        <div style="margin-top:16px; text-align:center;">
+            <a href="register.html" class="sidebar-nav-btn" style="display:inline-block; width:auto;">Need an account? Register</a>
+        </div>
+    </div>
+    <script>
+    // Star field effect
+    const stars = document.querySelector('.stars');
+    for(let i=0; i<120; i++) {
+        const star = document.createElement('div');
+        star.style.position = 'absolute';
+        star.style.width = star.style.height = Math.random() > 0.8 ? '3px' : '2px';
+        star.style.background = '#fffbe6';
+        star.style.borderRadius = '50%';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.opacity = Math.random() * 0.8 + 0.2;
+        star.style.boxShadow = `0 0 ${Math.random()*8+2}px #fffbe6`;
+        stars.appendChild(star);
+    }
+    document.getElementById('loginForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const msg = document.getElementById('loginMsg');
+        msg.classList.add('hidden');
+        const res = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                username: form.username.value,
+                password: form.password.value
+            })
+        });
+        const data = await res.json();
+        msg.textContent = data.message || data.error;
+        msg.classList.remove('hidden');
+        msg.style.color = res.ok ? '#27ae60' : '#e74c3c';
+        if (res.ok) form.reset();
+    };
+    </script>
+</body>
+</html> 

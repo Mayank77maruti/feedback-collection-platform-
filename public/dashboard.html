@@ -1,0 +1,591 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Dashboard | Hogwarts Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            overflow: hidden;
+            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .stars {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .sidebar {
+            width: 250px;
+            background: rgba(34, 34, 51, 0.95);
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+        .sidebar-logo {
+            font-family: 'UnifrakturCook', cursive;
+            color: #ffd700;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-left: 10px;
+            text-shadow: 0 0 8px #fffbe6, 0 0 16px #ffd700;
+            letter-spacing: 2px;
+        }
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar-nav-btn {
+            padding: 12px 16px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #ffd700, #b8860b);
+            color: #222;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.2s, transform 0.2s;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 0 8px #ffd70055;
+        }
+        .sidebar-nav-btn:hover {
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #fff;
+            transform: translateX(5px) scale(1.04);
+        }
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            position: relative;
+        }
+        .dashboard-title {
+            font-family: 'UnifrakturCook', cursive;
+            color: #ffd700;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-shadow: 0 0 8px #fffbe6, 0 0 16px #ffd700;
+        }
+        .submit-feedback-btn {
+            margin-bottom: 24px;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #ffd700, #b8860b);
+            color: #222;
+            cursor: pointer;
+            box-shadow: 0 0 8px #ffd70055;
+            transition: background 0.2s, transform 0.2s;
+            text-shadow: 0 0 6px #fffbe6;
+        }
+        .submit-feedback-btn:hover {
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #fff;
+            transform: scale(1.04);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.98rem;
+            color: #fffbe6;
+        }
+        th {
+            background: #2d3a4b;
+            color: #ffd700;
+            font-weight: 600;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        #noData {
+            text-align:center;
+            color:#fffbe6;
+            margin-top:20px;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+                padding: 20px;
+            }
+            .dashboard-title {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 15px;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="sidebar">
+        <div class="sidebar-logo">Hogwarts Feedback</div>
+        <nav class="sidebar-nav">
+            <a href="register.html" class="sidebar-nav-btn">Register (Admin)</a>
+            <a href="login.html" class="sidebar-nav-btn">Login (Admin)</a>
+            <a href="feedback.html" class="sidebar-nav-btn">Submit Feedback</a>
+            <a href="dashboard.html" class="sidebar-nav-btn">Dashboard</a>
+        </nav>
+    </div>
+    <div class="main-content">
+        <div id="user-info" style="position: absolute; top: 20px; right: 40px; color: #ffd700; font-weight: 700; font-family: 'UnifrakturCook', cursive; font-size: 1.1rem;"></div>
+        <a href="feedback.html"><button class="submit-feedback-btn">Submit Feedback</button></a>
+        <div class="dashboard-title">Feedback Dashboard</div>
+        <div style="margin-bottom: 24px;">
+            <label for="formSelect" style="color:#fffbe6; font-weight:600;">Select Form:</label>
+            <select id="formSelect" style="padding:8px 16px; border-radius:6px; font-size:1rem; margin-left:10px;"></select>
+        </div>
+        <table id="feedbackTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th id="dynamicQuestionsHeader"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Feedback rows will be inserted here by JS -->
+            <!-- </tbody>
+        </table>
+        <div id="noData" class="hidden">No feedback yet.</div>
+    </div>
+    <script>
+    // Star field effect
+    const stars = document.querySelector('.stars');
+    for(let i=0; i<120; i++) {
+        const star = document.createElement('div');
+        star.style.position = 'absolute';
+        star.style.width = star.style.height = Math.random() > 0.8 ? '3px' : '2px';
+        star.style.background = '#fffbe6';
+        star.style.borderRadius = '50%';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.opacity = Math.random() * 0.8 + 0.2;
+        star.style.boxShadow = `0 0 ${Math.random()*8+2}px #fffbe6`;
+        stars.appendChild(star);
+    }
+    // Show logged-in username if present
+    document.addEventListener('DOMContentLoaded', function() {
+        const userInfo = document.getElementById('user-info');
+        const username = localStorage.getItem('username');
+        if (username) {
+            userInfo.textContent = `Welcome, ${username}!`;
+        }
+    });
+    // Dynamic dashboard for form-based responses
+    const formSelect = document.getElementById('formSelect');
+    const feedbackTable = document.getElementById('feedbackTable');
+    const tableHeadRow = feedbackTable.querySelector('thead tr');
+    const tableBody = feedbackTable.querySelector('tbody');
+    const noData = document.getElementById('noData');
+    let forms = [];
+    let questions = [];
+    async function loadFormsForDashboard() {
+        const res = await fetch('/forms');
+        forms = await res.json();
+        console.log('Fetched forms:', forms);
+        formSelect.innerHTML = '';
+        if (!Array.isArray(forms) || forms.length === 0) {
+            formSelect.innerHTML = '<option>No forms available</option>';
+            tableBody.innerHTML = '';
+            noData.textContent = 'No forms available. Please create a form using the Create Form page.';
+            noData.classList.remove('hidden');
+            alert('No forms found. Please create a form first!');
+            return;
+        }
+        forms.forEach(form => {
+            const opt = document.createElement('option');
+            opt.value = form._id;
+            opt.textContent = form.title;
+            formSelect.appendChild(opt);
+        });
+        loadResponsesForForm(formSelect.value);
+    }
+    async function loadResponsesForForm(formId) {
+        const form = forms.find(f => f._id === formId);
+        questions = form ? form.questions : [];
+        // Update table headers
+        let headerHtml = '<th>Name</th><th>Email</th><th>Date</th>';
+        questions.forEach((q, idx) => {
+            headerHtml += `<th>Q${idx+1}: ${q}</th>`;
+        });
+        tableHeadRow.innerHTML = headerHtml;
+        // Fetch responses
+        const res = await fetch(`/responses/${formId}`);
+        const data = await res.json();
+        tableBody.innerHTML = '';
+        if (!res.ok || !Array.isArray(data) || data.length === 0) {
+            noData.textContent = 'No feedback yet.';
+            noData.classList.remove('hidden');
+            return;
+        }
+        noData.classList.add('hidden');
+        data.forEach(entry => {
+            const tr = document.createElement('tr');
+            let rowHtml = `<td>${entry.name || ''}</td><td>${entry.email || ''}</td><td>${entry.date ? new Date(entry.date).toLocaleString() : ''}</td>`;
+            (entry.answers || []).forEach(ans => {
+                rowHtml += `<td>${ans || ''}</td>`;
+            });
+            tr.innerHTML = rowHtml;
+            tableBody.appendChild(tr);
+        });
+    }
+    formSelect && formSelect.addEventListener('change', e => loadResponsesForForm(e.target.value));
+    loadFormsForDashboard();
+    </script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>  --> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Dashboard | Hogwarts Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            overflow: hidden;
+            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .stars {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .sidebar {
+            width: 250px;
+            background: rgba(34, 34, 51, 0.95);
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+        .sidebar-logo {
+            font-family: 'UnifrakturCook', cursive;
+            color: #ffd700;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-left: 10px;
+            text-shadow: 0 0 8px #fffbe6, 0 0 16px #ffd700;
+            letter-spacing: 2px;
+        }
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar-nav-btn {
+            padding: 12px 16px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #ffd700, #b8860b);
+            color: #222;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.2s, transform 0.2s;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 0 8px #ffd70055;
+        }
+        .sidebar-nav-btn:hover {
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #fff;
+            transform: translateX(5px) scale(1.04);
+        }
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            position: relative;
+        }
+        .dashboard-title {
+            font-family: 'UnifrakturCook', cursive;
+            color: #ffd700;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-shadow: 0 0 8px #fffbe6, 0 0 16px #ffd700;
+        }
+        .submit-feedback-btn {
+            margin-bottom: 24px;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #ffd700, #b8860b);
+            color: #222;
+            cursor: pointer;
+            box-shadow: 0 0 8px #ffd70055;
+            transition: background 0.2s, transform 0.2s;
+            text-shadow: 0 0 6px #fffbe6;
+        }
+        .submit-feedback-btn:hover {
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #fff;
+            transform: scale(1.04);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.98rem;
+            color: #fffbe6;
+        }
+        th {
+            background: #2d3a4b;
+            color: #ffd700;
+            font-weight: 600;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        #noData {
+            text-align: center;
+            color: #fffbe6;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+                padding: 20px;
+            }
+            .dashboard-title {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 15px;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="sidebar">
+        <div class="sidebar-logo">Hogwarts Feedback</div>
+        <nav class="sidebar-nav">
+            <a href="register.html" class="sidebar-nav-btn">Register (Admin)</a>
+            <a href="login.html" class="sidebar-nav-btn">Login (Admin)</a>
+            <a href="feedback.html" class="sidebar-nav-btn">Submit Feedback</a>
+            <a href="dashboard.html" class="sidebar-nav-btn">Dashboard</a>
+        </nav>
+    </div>
+    <div class="main-content">
+        <div id="user-info" style="position: absolute; top: 20px; right: 40px; color: #ffd700; font-weight: 700; font-family: 'UnifrakturCook', cursive; font-size: 1.1rem;"></div>
+        <a href="feedback.html"><button class="submit-feedback-btn">Submit Feedback</button></a>
+        <div class="dashboard-title">Feedback Dashboard</div>
+        <div style="margin-bottom: 24px;">
+            <label for="formSelect" style="color:#fffbe6; font-weight:600;">Select Form:</label>
+            <select id="formSelect" style="padding:8px 16px; border-radius:6px; font-size:1rem; margin-left:10px;"></select>
+        </div>
+        <table id="feedbackTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th id="dynamicQuestionsHeader"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Feedback rows will be inserted here by JS -->
+            </tbody>
+        </table>
+        <div id="noData" class="hidden">No feedback yet.</div>
+    </div>
+    <script>
+    // Star field effect
+    const stars = document.querySelector('.stars');
+    for(let i=0; i<120; i++) {
+        const star = document.createElement('div');
+        star.style.position = 'absolute';
+        star.style.width = star.style.height = Math.random() > 0.8 ? '3px' : '2px';
+        star.style.background = '#fffbe6';
+        star.style.borderRadius = '50%';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.opacity = Math.random() * 0.8 + 0.2;
+        star.style.boxShadow = `0 0 ${Math.random()*8+2}px #fffbe6`;
+        stars.appendChild(star);
+    }
+    // Show logged-in username if present
+    document.addEventListener('DOMContentLoaded', function() {
+        const userInfo = document.getElementById('user-info');
+        const username = localStorage.getItem('username');
+        if (username) {
+            userInfo.textContent = `Welcome, ${username}!`;
+        }
+    });
+    // Dynamic dashboard for form-based responses
+    const formSelect = document.getElementById('formSelect');
+    const feedbackTable = document.getElementById('feedbackTable');
+    const tableHeadRow = feedbackTable.querySelector('thead tr');
+    const tableBody = feedbackTable.querySelector('tbody');
+    const noData = document.getElementById('noData');
+    let forms = [];
+    let questions = [];
+    async function loadFormsForDashboard() {
+        try {
+            const res = await fetch('/forms');
+            if (!res.ok) {
+                throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            forms = await res.json();
+            console.log('Fetched forms:', forms);
+            formSelect.innerHTML = '';
+            if (!Array.isArray(forms) || forms.length === 0) {
+                formSelect.innerHTML = '<option>No forms available</option>';
+                tableBody.innerHTML = '';
+                noData.textContent = 'No forms available. Please create a form using the Create Form page.';
+                noData.classList.remove('hidden');
+                alert('No forms found. Please create a form first!');
+                return;
+            }
+            forms.forEach(form => {
+                console.log('Adding form:', form._id, form.title);
+                const opt = document.createElement('option');
+                opt.value = form._id;
+                opt.textContent = form.title;
+                formSelect.appendChild(opt);
+            });
+            loadResponsesForForm(formSelect.value);
+        } catch (error) {
+            console.error('Error fetching forms:', error);
+            formSelect.innerHTML = '<option>Error loading forms</option>';
+            noData.textContent = 'Failed to load forms. Please try again.';
+            noData.classList.remove('hidden');
+        }
+    }
+    async function loadResponsesForForm(formId) {
+        try {
+            const form = forms.find(f => f._id === formId);
+            questions = form ? form.questions : [];
+            let headerHtml = '<th>Name</th><th>Email</th><th>Date</th>';
+            questions.forEach((q, idx) => {
+                headerHtml += `<th>Q${idx+1}: ${q}</th>`;
+            });
+            tableHeadRow.innerHTML = headerHtml;
+            const res = await fetch(`/responses/${formId}`);
+            if (!res.ok) {
+                throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            const data = await res.json();
+            tableBody.innerHTML = '';
+            if (!Array.isArray(data) || data.length === 0) {
+                noData.textContent = 'No feedback yet.';
+                noData.classList.remove('hidden');
+                return;
+            }
+            noData.classList.add('hidden');
+            data.forEach(entry => {
+                const tr = document.createElement('tr');
+                let rowHtml = `<td>${entry.name || ''}</td><td>${entry.email || ''}</td><td>${entry.date ? new Date(entry.date).toLocaleString() : ''}</td>`;
+                (entry.answers || []).forEach(ans => {
+                    rowHtml += `<td>${ans || ''}</td>`;
+                });
+                tr.innerHTML = rowHtml;
+                tableBody.appendChild(tr);
+            });
+        } catch (error) {
+            console.error('Error fetching responses:', error);
+            noData.textContent = 'Failed to load responses. Please try again.';
+            noData.classList.remove('hidden');
+        }
+    }
+    formSelect && formSelect.addEventListener('change', e => loadResponsesForForm(e.target.value));
+    loadFormsForDashboard();
+    </script>
+</body>
+</html>

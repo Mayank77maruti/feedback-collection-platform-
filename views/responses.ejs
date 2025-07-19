@@ -1,0 +1,6 @@
+<h2>Responses</h2>
+<ul>
+    <% responses.forEach(r => { %>
+        <li><%= r.answers.join(', ') %> at <%= r.createdAt.toLocaleString() %></li>
+    <% }) %>
+</ul>

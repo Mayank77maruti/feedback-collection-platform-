@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Form | Hogwarts Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            overflow: hidden;
+            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .stars {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .sidebar {
+            width: 250px;
+            background: rgba(34, 34, 51, 0.95);
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+        .sidebar-logo {
+            font-family: 'UnifrakturCook', cursive;
+            color: #ffd700;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-left: 10px;
+            text-shadow: 0 0 8px #fffbe6, 0 0 16px #ffd700;
+            letter-spacing: 2px;
+        }
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar-nav-btn {
+            padding: 12px 16px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #ffd700, #b8860b);
+            color: #222;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.2s, transform 0.2s;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 0 8px #ffd70055;
+        }
+        .sidebar-nav-btn:hover {
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #fff;
+            transform: translateX(5px) scale(1.04);
+        }
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            position: relative;
+        }
+        .form-title {
+            font-family: 'UnifrakturCook', cursive;
+            color: #ffd700;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-shadow: 0 0 8px #fffbe6, 0 0 16px #ffd700;
+        }
+        form {
+            background: rgba(255,255,255,0.07);
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 32px 24px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 320px;
+        }
+        label {
+            color: #fffbe6;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #f9fafb;
+            transition: border 0.2s;
+        }
+        input:focus {
+            border-color: #ffd700;
+            outline: none;
+        }
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .question-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .remove-btn {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .remove-btn:hover {
+            background: #c0392b;
+        }
+        .add-btn {
+            background: linear-gradient(90deg, #ffd700, #b8860b);
+            color: #222;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            box-shadow: 0 0 8px #ffd70055;
+        }
+        .add-btn:hover {
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #fff;
+        }
+        #formMsg {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+                padding: 20px;
+            }
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 15px;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            form {
+                min-width: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="sidebar">
+        <div class="sidebar-logo">Hogwarts Feedback</div>
+        <nav class="sidebar-nav">
+            <a href="create_form.html" class="sidebar-nav-btn">Create Form</a>
+            <a href="dashboard.html" class="sidebar-nav-btn">Dashboard</a>
+            <a href="feedback.html" class="sidebar-nav-btn">Submit Feedback</a>
+        </nav>
+    </div>
+    <div class="main-content">
+        <div class="form-title">Create a New Feedback Form</div>
+        <form id="createForm">
+            <label for="title">Form Title</label>
+            <input type="text" id="title" name="title" required>
+            <label>Questions</label>
+            <div class="questions-list" id="questionsList"></div>
+            <button type="button" class="add-btn" id="addQuestionBtn">+ Add Question</button>
+            <button type="submit">Create Form</button>
+        </form>
+        <div id="formMsg" class="hidden"></div>
+    </div>
+    <script>
+    // Star field effect
+    const stars = document.querySelector('.stars');
+    for(let i=0; i<120; i++) {
+        const star = document.createElement('div');
+        star.style.position = 'absolute';
+        star.style.width = star.style.height = Math.random() > 0.8 ? '3px' : '2px';
+        star.style.background = '#fffbe6';
+        star.style.borderRadius = '50%';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.opacity = Math.random() * 0.8 + 0.2;
+        star.style.boxShadow = `0 0 ${Math.random()*8+2}px #fffbe6`;
+        stars.appendChild(star);
+    }
+    // Dynamic questions
+    const questionsList = document.getElementById('questionsList');
+    const addQuestionBtn = document.getElementById('addQuestionBtn');
+    function addQuestionField(value = '') {
+        const row = document.createElement('div');
+        row.className = 'question-row';
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Enter question';
+        input.required = true;
+        input.value = value;
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'remove-btn';
+        removeBtn.textContent = 'Remove';
+        removeBtn.onclick = () => row.remove();
+        row.appendChild(input);
+        row.appendChild(removeBtn);
+        questionsList.appendChild(row);
+    }
+    addQuestionBtn.onclick = () => addQuestionField();
+    // Add one question by default
+    addQuestionField();
+    // Handle form submission
+    document.getElementById('createForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const title = document.getElementById('title').value;
+        const questions = Array.from(questionsList.querySelectorAll('input')).map(i => i.value).filter(Boolean);
+        const msg = document.getElementById('formMsg');
+        msg.classList.add('hidden');
+        if (!title || questions.length === 0) {
+            msg.textContent = 'Please enter a title and at least one question.';
+            msg.style.color = '#e74c3c';
+            msg.classList.remove('hidden');
+            return;
+        }
+        // Optionally, get admin id from localStorage/session if you want to track creator
+        const res = await fetch('/forms', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, questions })
+        });
+        const data = await res.json();
+        msg.textContent = data.message || data.error;
+        msg.classList.remove('hidden');
+        msg.style.color = res.ok ? '#27ae60' : '#e74c3c';
+        if (res.ok) {
+            document.getElementById('createForm').reset();
+            questionsList.innerHTML = '';
+            addQuestionField();
+        }
+    };
+    </script>
+</body>
+</html> 

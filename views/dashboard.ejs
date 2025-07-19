@@ -1,0 +1,11 @@
+<h2>Your Forms</h2>
+<a href="/forms/create">Create New Form</a>
+<ul>
+    <% forms.forEach(form => { %>
+        <li>
+            <%= form.title %> | 
+            <a href="/forms/<%= form._id %>">Public Link</a> | 
+            <a href="/responses/<%= form._id %>">View Responses</a>
+        </li>
+    <% }) %>
+</ul>

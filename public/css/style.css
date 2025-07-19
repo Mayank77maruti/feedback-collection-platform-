@@ -1,0 +1,122 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6fb;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 400px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px 24px 24px 24px;
+}
+
+h1 {
+    text-align: center;
+    color: #2d3a4b;
+    margin-bottom: 24px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+label {
+    font-weight: 500;
+    color: #2d3a4b;
+    margin-bottom: 4px;
+}
+
+input, textarea {
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #f9fafb;
+    transition: border 0.2s;
+}
+
+input:focus, textarea:focus {
+    border-color: #4f8cff;
+    outline: none;
+}
+
+button {
+    padding: 12px;
+    background: linear-gradient(90deg, #4f8cff, #2355e6);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #2355e6, #4f8cff);
+}
+
+#confirmation {
+    margin-top: 20px;
+    text-align: center;
+    color: #27ae60;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Dashboard Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+th, td {
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.98rem;
+}
+th {
+    background: #f4f6fb;
+    color: #2d3a4b;
+    font-weight: 600;
+}
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Navigation Link */
+.nav-link {
+    color: #4f8cff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.nav-link:hover {
+    background: #f4f6fb;
+}
+
+@media (max-width: 500px) {
+    .container {
+        padding: 16px 8px 16px 8px;
+    }
+    h1 {
+        font-size: 1.3rem;
+    }
+}

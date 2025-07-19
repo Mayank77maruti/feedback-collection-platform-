@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Forms | Hogwarts Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            overflow: hidden;
+            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .stars {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .sidebar {
+            width: 250px;
+            background: rgba(34, 34, 51, 0.95);
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+        .sidebar-logo {
+            font-family: 'UnifrakturCook', cursive;
+            color: #ffd700;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-left: 10px;
+            text-shadow: 0 0 8px #fffbe6, 0 0 16px #ffd700;
+            letter-spacing: 2px;
+        }
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar-nav-btn {
+            padding: 12px 16px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #ffd700, #b8860b);
+            color: #222;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.2s, transform 0.2s;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 0 8px #ffd70055;
+        }
+        .sidebar-nav-btn:hover {
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #fff;
+            transform: translateX(5px) scale(1.04);
+        }
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            position: relative;
+        }
+        .forms-title {
+            font-family: 'UnifrakturCook', cursive;
+            color: #ffd700;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-shadow: 0 0 8px #fffbe6, 0 0 16px #ffd700;
+        }
+        .form-list {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .form-card {
+            background: rgba(255,255,255,0.07);
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-title {
+            color: #fffbe6;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .fill-btn {
+            background: linear-gradient(90deg, #ffd700, #b8860b);
+            color: #222;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 0 8px #ffd70055;
+            transition: background 0.2s;
+        }
+        .fill-btn:hover {
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #fff;
+        }
+        #formsMsg {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+                padding: 20px;
+            }
+            .forms-title {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 15px;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .form-list {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="sidebar">
+        <div class="sidebar-logo">Hogwarts Feedback</div>
+        <nav class="sidebar-nav">
+            <a href="forms.html" class="sidebar-nav-btn">Available Forms</a>
+            <a href="dashboard.html" class="sidebar-nav-btn">Dashboard</a>
+            <a href="feedback.html" class="sidebar-nav-btn">Submit Feedback</a>
+        </nav>
+    </div>
+    <div class="main-content">
+        <div class="forms-title">Available Feedback Forms</div>
+        <div id="formsMsg" class="hidden"></div>
+        <div class="form-list" id="formList"></div>
+    </div>
+    <script>
+    // Star field effect
+    const stars = document.querySelector('.stars');
+    for(let i=0; i<120; i++) {
+        const star = document.createElement('div');
+        star.style.position = 'absolute';
+        star.style.width = star.style.height = Math.random() > 0.8 ? '3px' : '2px';
+        star.style.background = '#fffbe6';
+        star.style.borderRadius = '50%';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.opacity = Math.random() * 0.8 + 0.2;
+        star.style.boxShadow = `0 0 ${Math.random()*8+2}px #fffbe6`;
+        stars.appendChild(star);
+    }
+    // Fetch and display forms
+    async function loadForms() {
+        const formList = document.getElementById('formList');
+        const msg = document.getElementById('formsMsg');
+        msg.classList.add('hidden');
+        formList.innerHTML = '';
+        const res = await fetch('/forms');
+        const data = await res.json();
+        if (!res.ok || !Array.isArray(data) || data.length === 0) {
+            msg.textContent = 'No forms available.';
+            msg.classList.remove('hidden');
+            return;
+        }
+        data.forEach(form => {
+            const card = document.createElement('div');
+            card.className = 'form-card';
+            const title = document.createElement('div');
+            title.className = 'form-title';
+            title.textContent = form.title;
+            const fillBtn = document.createElement('button');
+            fillBtn.className = 'fill-btn';
+            fillBtn.textContent = 'Fill Out';
+            fillBtn.onclick = () => window.location.href = `fill_form.html?id=${form._id}`;
+            card.appendChild(title);
+            card.appendChild(fillBtn);
+            formList.appendChild(card);
+        });
+    }
+    loadForms();
+    </script>
+</body>
+</html> 
